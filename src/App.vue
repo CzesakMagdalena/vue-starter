@@ -4,16 +4,20 @@
 	<div v-if ="authenticated"> 
 	<h3>Zalogowano jako {{email}}</h3>
 	<a @click="logOut()">Wyloguj</a> </div>
-	<div v-else>Zaloguj sie: <input type="text" v-model="email">
-	<button @click="logIn()">Zaloguj się</button></div>
+	<div v-else>
+	<login-form @login="logIn($event)"></login-form>
+	<login-form @login="logIn($event)"></login-form>
   </div>
+   </div>
 </template>
 
 <script>
 
 import "milligram";
+import LoginForm from "./LoginForm";
 
 export default {
+components: {LoginForm},
  data() {
   return {
     authenticated: false,
@@ -21,8 +25,9 @@ export default {
   };
 },
 methods: {
-  logIn() {
+  logIn(username) {
     this.authenticated = true;
+	this.email = username;
   },
    logOut() {
     this.authenticated = false;
